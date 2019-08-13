@@ -26,12 +26,12 @@ html.appendChild(normal);
 // setting up etch-a-sketch container for boxes
 container = document.createElement('div');
 container.className += "container";
-container.setAttribute("style", "position: absolute; top:65px; left:200px; height:1000px; width:1000px; border: 5px solid red;");
+container.setAttribute("style", "position: absolute; top:65px; left:150px; height:900px; width:1100px; border: 7px solid red;");
 html.appendChild(container);
 
 
 // CALLBACK FUNCTIONS FOR SETTING UP ETCH-A-SKETCH CANVAS
-// pushing the boxes into the container, making them each 1% by 1% of the container's width and height
+// pushing the boxes into the container, making them each 1% by 1% of the container's width and height (10000 boxes in total)
 var divs = [];
 function createBoxes() {
 	for (let i = 0; i < 10000; ++i) {
@@ -68,11 +68,31 @@ function eventListeners() { //function for initializing event listeners
 	}));
 }
 
-// CLEARING ALL THE SKETCHES AND DIVS
+// fun little easter egg if someone updates the container to the defaults
+var colored = []
+function colorEventListeners() { //function for initializing event listeners
+	// adding event listeners to each box element
+	divs.forEach(div => div.addEventListener("mouseover", (e) => {
+
+		if (mouseDown) {
+			let r = Math.floor(Math.random() * 255);
+			let g = Math.floor(Math.random() * 255);
+			let b = Math.floor(Math.random() * 255);
+			let color = "rgb("+ r + ", " + g + ", " + b + ")"
+			e.target.style.backgroundColor = color;
+			colored.push(e.target);
+
+		}
+
+	}));
+
+}
+
+// CLEARING ALL DIVS AND SKETCHES
 function clearAll() {
 	for (var i = 0; i < divs.length; ++i) {
 		container.removeChild(container.firstChild);
-		
+
 	}
 	divs = [];
 
@@ -85,6 +105,12 @@ const clearSketch = () => {
 		--i;
 	}
 	sketches = [];
+
+	if (colored.length > 0) {
+		for (var i = 0; i < colored.length; ++i) {
+			colored[i].style.backgroundColor = "white";
+		}
+	}
 }
 
 //initializing the sketch boxes in the canvas
@@ -112,22 +138,32 @@ grid.addEventListener("click", () => {
 	var width = '';
 
 	while ( isNaN(height) || isNaN(width) || height <= 0 || width <= 0 ) { // must be a positive number
-		height = Number(prompt('Height')); // prompt returns a string so we need to numberify it
-		width = Number(prompt('Width'));
+		width = Number(prompt('Width', 1080));
+		height = Number(prompt('Height', 720)); // prompt returns a string so we need to numberify it
+
 	}
 
-	let atts = "position:absolute; top:65px; left:" + (640-width/2) + "px; height:" + (height+1) + "px; width:" + (width+1) + "px; border: 5px solid red;";
-	container.setAttribute("style", atts);
-
+	let atts = "position:absolute; top:65px; left:" + (700-width/2) + "px; height:" + (height+1) + "px; width:" + (width+1) + "px; border: 7px solid red;";
 	clearAll();
 	createBoxes();
-	eventListeners();
+	if (height === 720 && width === 1080) {
+
+		alert("Good choice!");
+		alert("We have a little surprise for you!");
+		colorEventListeners();
+
+	} else {
+		container.setAttribute("style", atts);
+
+
+		eventListeners();
+	}
 
 });
 
 // revert back to default
 normal.addEventListener("click", () => {
-	container.setAttribute("style", "position: absolute; top:65px; left:200px; height:1000px; width:1000px; border: 5px solid red;");
+	container.setAttribute("style", "position: absolute; top:65px; left:150px; height:900px; width:1100px; border: 7px solid red;");
 
 	clearAll();
 	createBoxes();
