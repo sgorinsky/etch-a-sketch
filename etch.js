@@ -33,14 +33,13 @@ html.appendChild(container);
 // CALLBACK FUNCTIONS FOR SETTING UP ETCH-A-SKETCH CANVAS
 // pushing the boxes into the container, making them each 1% by 1% of the container's width and height
 var divs = [];
-function createBoxes(h, w) {
-	for (let i = 0; i < (h * w); ++i) {
+function createBoxes() {
+	for (let i = 0; i < 10000; ++i) {
 
-		d = document.createElement('div');
-	  d.className += 'box';
-	  let attributes = "float:left; height:" + (100/h) + "%; width:" + (100/w) + "%;";
-	  d.setAttribute("style", attributes);
-	  divs.push(d);
+		divs[i] = document.createElement('div');
+	  divs[i].className = 'box';
+	  let attributes = "float:left; height:1%; width:1%;";
+	  divs[i].setAttribute("style", attributes);
 	  container.appendChild(divs[i]);
 
 	}
@@ -69,16 +68,27 @@ function eventListeners() { //function for initializing event listeners
 	}));
 }
 
+// CLEARING ALL THE SKETCHES AND DIVS
+function clearAll() {
+	for (var i = 0; i < divs.length; ++i) {
+		container.removeChild(container.firstChild);
+		
+	}
+	divs = [];
+
+}
+
 const clearSketch = () => {
 	for (let i = 0; i < sketches.length; ++i) {
 		sketches[i].classList.remove("sketch");
 		sketches.splice(i, 1); // removing sketches elements so it doesn't take up too much memory if someone sketches a lot
 		--i;
 	}
+	sketches = [];
 }
 
 //initializing the sketch boxes in the canvas
-createBoxes(100, 100);
+createBoxes();
 eventListeners();
 
 // checking if the mouse is down in the titleContainer
@@ -109,9 +119,8 @@ grid.addEventListener("click", () => {
 	let atts = "position:absolute; top:65px; left:" + (640-width/2) + "px; height:" + (height+1) + "px; width:" + (width+1) + "px; border: 5px solid red;";
 	container.setAttribute("style", atts);
 
-	clearSketch(); // we have to place this before we clear divs because the divs with the sketch class added are still in memory if we don't
-	divs = []; // empty divs
-	createBoxes(100, 100);
+	clearAll();
+	createBoxes();
 	eventListeners();
 
 });
@@ -120,8 +129,7 @@ grid.addEventListener("click", () => {
 normal.addEventListener("click", () => {
 	container.setAttribute("style", "position: absolute; top:65px; left:200px; height:1000px; width:1000px; border: 5px solid red;");
 
-	clearSketch();
-	divs = [];
-	createBoxes(100, 100);
+	clearAll();
+	createBoxes();
 	eventListeners();
 });
