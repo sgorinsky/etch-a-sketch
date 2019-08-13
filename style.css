@@ -2,33 +2,44 @@ html {
   background-color: lightblue;
 }
 
-.titleContainer {
+.reset {
+  float: left;
+  position:absolute;
+  left:765px;
+  top:30px;
+}
+
+.grid {
   float: left;
   position:absolute;
   left:825px;
   top:30px;
 }
 
+.normal {
+  float: left;
+  position:absolute;
+  left:895px;
+  top:30px;
+  margin: 0px 10px 0px 10px;
+
+}
+
 .title {
   float: left;
   position:absolute;
-  left:600px;
+  left:550px;
   top:0px;
 }
 
 .container {
-  position: absolute;
-  left:200px;
-  top:65px;
-  height:1000px;
-  width:1000px;
-  background-color: white;
+  background-color:white;
 }
 
 .box:hover {
   background-color:#696969;
 }
 
-.dragged {
+.sketch {
   background-color:black;
 }
