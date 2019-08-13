@@ -25,8 +25,8 @@ html.appendChild(normal);
 
 // setting up etch-a-sketch container for boxes
 container = document.createElement('div');
-container.className += "container";
-container.setAttribute("style", "position: absolute; top:65px; left:150px; height:900px; width:1100px; border: 7px solid red;");
+container.className = "container";
+container.setAttribute("style", "position: absolute; top:65px; left:150px; height:900px; width:1100px; border: 15px solid #B22222; border-radius:19px;");
 html.appendChild(container);
 
 
@@ -143,19 +143,24 @@ grid.addEventListener("click", () => {
 
 	}
 
-	let atts = "position:absolute; top:65px; left:" + (700-width/2) + "px; height:" + (height+1) + "px; width:" + (width+1) + "px; border: 7px solid red;";
+	let atts = "position:absolute; top:65px; left:" + (700-width/2) + "px; height:" + (height+1) + "px; width:" + (width+1) + "px;";
+
 	clearAll();
 	createBoxes();
-	if (height === 720 && width === 1080) {
 
+	if (height === 720 && width === 1080) {
+		let border= "border: 15px solid #800080; border-radius:19px;";
+		atts += border;
 		alert("Good choice!");
 		alert("We have a little surprise for you!");
+
+		container.setAttribute("style", atts);
 		colorEventListeners();
 
 	} else {
+		let border = "border: 15px solid #B22222; border-radius:19px;";
+		atts += border
 		container.setAttribute("style", atts);
-
-
 		eventListeners();
 	}
 
@@ -163,7 +168,7 @@ grid.addEventListener("click", () => {
 
 // revert back to default
 normal.addEventListener("click", () => {
-	container.setAttribute("style", "position: absolute; top:65px; left:150px; height:900px; width:1100px; border: 7px solid red;");
+	container.setAttribute("style", "position: absolute; top:65px; left:150px; height:900px; width:1100px; border: 15px solid #B22222; border-radius:19px;");
 
 	clearAll();
 	createBoxes();
