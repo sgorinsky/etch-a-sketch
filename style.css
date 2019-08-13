@@ -1,0 +1,34 @@
+html {
+  background-color: lightblue;
+}
+
+.titleContainer {
+  float: left;
+  position:absolute;
+  left:825px;
+  top:30px;
+}
+
+.title {
+  float: left;
+  position:absolute;
+  left:600px;
+  top:0px;
+}
+
+.container {
+  position: absolute;
+  left:200px;
+  top:65px;
+  height:1000px;
+  width:1000px;
+  background-color: white;
+}
+
+.box:hover {
+  background-color:#696969;
+}
+
+.dragged {
+  background-color:black;
+}
